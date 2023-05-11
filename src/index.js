@@ -4,10 +4,27 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import Index from './views/Index';
+import Create from './views/Create';
+
+import { configureStore } from '@reduxjs/toolkit';
+import { addTasks } from './features/Tasks';
+import tasksReducer from './features/Tasks';
+import { Provider } from 'react-redux';
+
+const store = configureStore({
+  reducer: {
+    tasks: tasksReducer,
+  }
+})
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
