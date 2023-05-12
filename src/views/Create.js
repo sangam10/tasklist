@@ -1,17 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { addTask } from '../features/Tasks'
 
 function Create() {
     const tasks = useSelector((state) => state.tasks.value)
-    const [task, setTask] = useState({
+    const [form, setForm] = useState({
         task: ''
     })
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const handleChange = (event)=>{
-        console.log(event.target)
+    const handleChange = (event) => {
+        const { value } = event.target
+        setForm({...form,task:value})
+    }
+    const createTask = (event) => {
+        event.preventDefault();
+        console.log(form)
+
+        //submit
+        dispatch(
+            addTask({ id: tasks[tasks.length - 1].id + 1, task: form.task, date: new Date() })
+        )
+        //reset form
+        setForm({
+            task: ''
+        })
+        navigate('/')
     }
     return (<>
         <div className="container pt-5">
@@ -24,26 +41,25 @@ function Create() {
                 </div>
                 <div className="card-body">
                     <div className="container">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" className="form-label">Task</label>
-                            <input
-                                onChange= {handleChange}
-                                value={task.task}
-                                type="text"
-                                className="form-control"
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="btn btn-primary"
-                            onClick={
-                                () => {
-                                    dispatch(
-                                        addTask({ id: tasks[tasks.length - 1].id + 1, task: task, date: new Date() })
-                                    )
-                                }}>
-                            Submit
-                        </button>
+                        <form onSubmit={createTask}>
+                            <div class="mb-3">
+                                <label for="task" className="form-label">Task</label>
+                                <textarea
+                                    onChange={handleChange}
+                                    value={form.task}
+                                    type="text"
+                                    rows={5}
+                                    name="task"
+                                    className="form-control"
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className="btn btn-primary"
+                            >
+                                Submit
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

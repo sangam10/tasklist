@@ -1,27 +1,10 @@
 import {
-  createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Create from "./views/Create";
-import Index from "./views/Index";
-import Edit from "./views/Edit";
 
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Index />,
-  },
-  {
-    path:'/create',
-    element:<Create />
-  },
-  {
-    path:'/edit/:id',
-    element:<Edit />
-  }
-]);
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import {routers} from './routers/route.js'
 
 export default function App() {
-  return (<RouterProvider router={router}></RouterProvider>)
+  return (<RouterProvider router={routers}></RouterProvider>)
 }
