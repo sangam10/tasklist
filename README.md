@@ -1,3 +1,5 @@
+# tasklist
+create task list using react. Implementation of react router and redux
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
